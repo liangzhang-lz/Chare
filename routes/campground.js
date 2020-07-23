@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campground");
+const { route } = require("./comments");
 
 
 // Index, main page
@@ -34,6 +35,7 @@ router.get("/:id", function(req, res){
     
 });
 
+
 // Post a new campground
 router.post("/",  isLoggedIn, function(req, res){
     // get data from form and add to array
@@ -60,6 +62,32 @@ router.post("/",  isLoggedIn, function(req, res){
     });
 
 });
+
+// Edit form
+router.get("/:id/edit", function(req, res){
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if (err){
+            res.redirect("/campground");
+        } else {
+            res.render("campgrounds/edit", {campground: foundCampground});
+        }
+    })
+    
+});
+
+// Update route
+router.put("/:id", function(req, res){
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+        if (err){
+            res.redirect("/campground");
+        } else {
+            res.redirect("/campground/" + req.params.id);
+        }
+    });
+});
+
+
+// Delete
 
 
 // middleware
