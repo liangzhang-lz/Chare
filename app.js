@@ -20,7 +20,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); // no need to type .ejs
 app.use(express.static(__dirname + "/public"))
 
-seedDB();
+
+// seedDB(); // seed the database
 
 /* // for init only, create a few sample imgs
 Campground.create({
