@@ -11,10 +11,6 @@ var seedDB = require("./seeds.js");
 var methodOverride = require("method-override");
 
 
-
-
-
-
 // requring route
 var campgroundRoutes = require("./routes/campground");
 var commentRoutes = require("./routes/comments");
