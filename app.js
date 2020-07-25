@@ -15,7 +15,11 @@ var flash = require("connect-flash");
 // requring route
 var campgroundRoutes = require("./routes/campground");
 var commentRoutes = require("./routes/comments");
-var authRoutes = require("./routes/auth")
+var authRoutes = require("./routes/auth");
+var reviewRoutes     = require("./routes/reviews");
+
+
+
 
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true}); // mongoDB 
@@ -69,6 +73,8 @@ app.get("/", function(req, res){
 app.use(authRoutes);
 app.use("/campground", campgroundRoutes); // this will automaticlly add "/campground" in front of route path in campgroundRoutes
 app.use("/campground/:id/comments", commentRoutes); 
+app.use("/campground/:id/reviews", reviewRoutes);
+
 
 app.listen(3000, function(){
     console.log("YelpCamp started!")

@@ -18,3 +18,7 @@
 .delete-comment-form{
     display: inline;
 }
+
+.checked {
+    color: orange;
+}
