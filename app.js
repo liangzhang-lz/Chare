@@ -11,6 +11,7 @@ var seedDB = require("./seeds.js");
 var methodOverride = require("method-override");
 var flash = require("connect-flash");
 
+
 // requring route
 var campgroundRoutes = require("./routes/campground");
 var commentRoutes = require("./routes/comments");
@@ -38,6 +39,7 @@ Campground.create({
     
 });
 */
+app.locals.moment = require('moment');
 
 // Passport config
 app.use(require("express-session")({ 
