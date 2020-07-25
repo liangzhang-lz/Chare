@@ -16,7 +16,7 @@ router.get("/", function(req, res){
         if (err){
             console.log(err)
         } else {
-            res.render("campgrounds/index", {campground: allCampgrounds}); // index is for index.ejs. campground is object variable used in index.ejs
+            res.render("campgrounds/index", {campground: allCampgrounds, page: 'campgrounds'}); // index is for index.ejs. campground is object variable used in index.ejs
         } // campground also need to match "campground" in ejs file
     });
 });
@@ -30,13 +30,13 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 // Show details of aspecific campground
 router.get("/:id", function(req, res){
     Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
-        if (err){
-            console.log(err);
+        if (err || !foundCampground){
+            req.flash("error", "Campground not found!");
+            res.redirect("/campground");
         } else {
             res.render("campgrounds/show", {campground: foundCampground});
         }
     });
-    
 });
 
 
@@ -45,6 +45,7 @@ router.post("/",  middleware.isLoggedIn, function(req, res){
     // get data from form and add to array
     // redirect to campground page
     var name = req.body.name;
+    var price = req.body.price;
     var image = req.body.image;
     var desc = req.body.description;
     var author = {
@@ -53,6 +54,7 @@ router.post("/",  middleware.isLoggedIn, function(req, res){
     }
     var newCampground = {
         name: name,
+        price: price,
         image: image, 
         description: desc,
         author: author

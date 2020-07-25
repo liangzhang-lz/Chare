@@ -9,7 +9,7 @@ var Comment = require("./models/comment");
 var User = require("./models/user");
 var seedDB = require("./seeds.js");
 var methodOverride = require("method-override");
-
+var flash = require("connect-flash");
 
 // requring route
 var campgroundRoutes = require("./routes/campground");
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); // no need to type .ejs
 app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"));
-
+app.use(flash());
 // seedDB(); // seed the database
 
 /* // for init only, create a few sample imgs
@@ -40,7 +40,7 @@ Campground.create({
 */
 
 // Passport config
-app.use(require("express-session")({
+app.use(require("express-session")({ 
     secret: "Furong is the best",
     resave: false,
     saveUninitialized:false
@@ -52,8 +52,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(function(req, res, next){ // add user info to the request. Use as currentUser
+app.use(function(req, res, next){ // add user info to the request in every page. Use as currentUser
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 
