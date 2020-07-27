@@ -10,6 +10,7 @@ var User = require("./models/user");
 var seedDB = require("./seeds.js");
 var methodOverride = require("method-override");
 var flash = require("connect-flash");
+require('dotenv').config();
 
 
 // requring route
@@ -19,10 +20,20 @@ var authRoutes = require("./routes/auth");
 var reviewRoutes     = require("./routes/reviews");
 
 
-
-
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true}); // mongoDB 
+
+mongoose.connect(process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp", 
+    {
+        useNewUrlParser: true, 
+        useCreateIndex: true
+    }).then(()=> {
+        console.log("Connected to DB");
+    }).catch(err => {
+        console.log("ERROR:", err.message);
+    }); // mongoDB 
+    
+
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs"); // no need to type .ejs
 app.use(express.static(__dirname + "/public"))
@@ -30,19 +41,6 @@ app.use(methodOverride("_method"));
 app.use(flash());
 // seedDB(); // seed the database
 
-/* // for init only, create a few sample imgs
-Campground.create({
-    name: "sasdfsf", image: "https://images.unsplash.com/photo-1593451693781-d32def89a464?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-}, function(err, campground){
-    if (err){
-        console.log(error);
-    } else {
-        console.log("Added");
-        console.log(campground);
-    }
-    
-});
-*/
 app.locals.moment = require('moment');
 
 // Passport config
@@ -76,7 +74,15 @@ app.use("/campground/:id/comments", commentRoutes);
 app.use("/campground/:id/reviews", reviewRoutes);
 
 
-app.listen(3000, function(){
-    console.log("YelpCamp started!")
-});
+
+if ((process.env.PORT && process.env.IP)){ // production
+    app.listen(process.env.PORT, process.env.IP, function(){
+        console.log("YelpCamp started!")
+    });
+} else { // localhost
+    app.listen(3000, function(){
+        console.log("YelpCamp started! Listening to port:3000")
+    });
+}
+
 
