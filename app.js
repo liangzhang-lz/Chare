@@ -1,23 +1,23 @@
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
-var passport = require("passport");
-var LocalStrategy = require("passport-local");
-var Campground = require("./models/campground");
-var Comment = require("./models/comment");
-var User = require("./models/user");
-var seedDB = require("./seeds.js");
-var methodOverride = require("method-override");
-var flash = require("connect-flash");
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const Campground = require("./models/campground");
+const Comment = require("./models/comment");
+const User = require("./models/user");
+const seedDB = require("./seeds.js");
+const methodOverride = require("method-override");
+const flash = require("connect-flash");
 require('dotenv').config();
 
 
 // requring route
-var campgroundRoutes = require("./routes/campground");
-var commentRoutes = require("./routes/comments");
-var authRoutes = require("./routes/auth");
-var reviewRoutes     = require("./routes/reviews");
+const campgroundRoutes = require("./routes/campground");
+const commentRoutes = require("./routes/comments");
+const authRoutes = require("./routes/auth");
+const reviewRoutes     = require("./routes/reviews");
 
 
 mongoose.set('useUnifiedTopology', true);

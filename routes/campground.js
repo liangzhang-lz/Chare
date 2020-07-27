@@ -1,12 +1,12 @@
-var express = require("express");
-var router = express.Router();
-var Campground = require("../models/campground");
-var Comment = require("../models/comment");
-var Review = require("../models/review");
+const express = require("express");
+const router = express.Router();
+const Campground = require("../models/campground");
+const Comment = require("../models/comment");
+const Review = require("../models/review");
 // const { route } = require("./comments");
 // const campground = require("../models/campground");
 
-var middleware = require("../middleware")  // will automaticlly include index.js
+const middleware = require("../middleware")  // will automaticlly include index.js
 
 
 
@@ -27,15 +27,15 @@ router.get("/", function(req, res){
 router.post("/",  middleware.isLoggedIn, function(req, res){
     // get data from form and add to array
     // redirect to campground page
-    var name = req.body.name;
-    var price = req.body.price;
-    var image = req.body.image;
-    var desc = req.body.description;
-    var author = {
+    const name = req.body.name;
+    const price = req.body.price;
+    const image = req.body.image;
+    const desc = req.body.description;
+    const author = {
         id: req.user._id, 
         username: req.user.username
     }
-    var newCampground = {
+    const newCampground = {
         name: name,
         price: price,
         image: image, 

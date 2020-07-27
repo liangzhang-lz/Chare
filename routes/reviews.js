@@ -1,8 +1,8 @@
-var express = require("express");
-var router = express.Router({mergeParams: true});
-var Campground = require("../models/campground");
-var Review = require("../models/review");
-var middleware = require("../middleware");
+const express = require("express");
+const router = express.Router({mergeParams: true});
+const Campground = require("../models/campground");
+const Review = require("../models/review");
+const middleware = require("../middleware");
 
 // Reviews Index
 router.get("/", function (req, res) {
@@ -120,7 +120,7 @@ function calculateAverage(reviews) {
     if (reviews.length === 0) {
         return 0;
     }
-    var sum = 0;
+    let sum = 0;
     reviews.forEach(function (element) {
         sum += element.rating;
     });
