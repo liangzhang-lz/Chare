@@ -5,8 +5,8 @@ mongoose.set('useFindAndModify', false);
 const campgroundSchema  = new mongoose.Schema({
     name: String,
     image: String,
+    imageId: String,
     description: String,
-    price: String,
     createdAt: {
        type: Date,
        default: Date.now

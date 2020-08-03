@@ -4,12 +4,24 @@
     <h1 >Sign Up</h1>
     <div class="col-md-12">
         <form class="form-signin" action="/register" method="post">
+            <label for="inputAvatarURL" class="sr-only ">Avatar</label>
+            <input type="file" id="inputAvatarURL" name="avatar" accept="image/*" class="form-control" placeholder="Avatar image URL" required autofocus>
+
+            <label for="inputFirstrname" class="sr-only">First name</label>
+            <input type="text" id="inputFirstrname" name="firstname" class="form-control" placeholder="First name" required autofocus>
+
+            <label for="inputLastname" class="sr-only">Last name</label>
+            <input type="text" id="inputLastname" name="lastname" class="form-control" placeholder="Last name" required autofocus>
+
 
             <label for="inputUsername" class="sr-only">Username</label>
             <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus>
+            
 
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+
+            
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up!</button>
 

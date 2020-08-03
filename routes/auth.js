@@ -13,7 +13,10 @@ router.get("/register", function(req, res){
 // handle sign up logic
 router.post("/register", function(req, res){
     const newUser = new User({
-        username: req.body.username
+        username: req.body.username, 
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        avatar: req.body.avatar
     });
     User.register(newUser, req.body.password, function(err, user){
         if (err){
@@ -47,6 +50,18 @@ router.get("/logout", function(req, res){
     res.redirect("/campground");
 })
 
+
+// user profile
+router.get("/users/:id", function(req, res){
+    User.findById(req.params.id, function(err, foundUser){
+        if (err || !foundUser){
+            req.flash("error", "User not found!");
+            res.redirect("/");
+        } else {
+            res.render("users/show", {user: foundUser});
+        }
+    });
+});
 
 
 module.exports = router;

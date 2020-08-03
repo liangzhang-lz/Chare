@@ -11,11 +11,10 @@
                 </div>
                 <img src="<%= campground.image %> " class="card-img-top" alt= "<%= campground.name %>" >
                 <div class="card-body">
-                    <p class="float-right"> $<%= campground.price  %>/night</p>
                     <h4 class="card-title"> <%= campground.name %> </h4>
                     
                     <p>
-                        <em>Submitted by: <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
+                        <em>Submitted by: <a href="/users/<%=campground.author.id%>"><%= campground.author.username %></a>, <%= moment(campground.createdAt).fromNow() %></em>
                     </p>
                     <hr>
                     <p class="card-text">
@@ -85,7 +84,7 @@
                         <% } %>
                         <div>
                             <a class="btn btn-primary btn-md <% if (currentUser && campground.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/campground/<%= campground._id %>/reviews/new">
-                                Write a New Review
+                                <i class="fa fa-thumbs-up"></i> Write new review
                             </a>
                         </div>
                     <p class="card-text">
@@ -113,11 +112,11 @@
                         </div>
                 
                         <!--Collapse Add a comment form START-->
-                        <div class="collapse mt-2" id="collapseComment">
+                        <div class="collapse m-2" id="collapseComment">
                             <div class="card" style="border-left: solid #0fb338;">
                                 <% if(!currentUser) { %>
                                 <!--If the user is not logged in, direct him to the login page-->
-                                <h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
+                                <p class="ml-2">You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</p>
                                 <% } %>
                                 <% if(currentUser) { %>
                                 <!--If the user is logged in, show the new comment form-->
