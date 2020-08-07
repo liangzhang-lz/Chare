@@ -1,10 +1,10 @@
-var express = require("express");
-var router = express.Router({mergeParams: true});
-var Campground = require("../models/campground");
-var Comment = require("../models/comment");
+const express = require("express");
+const router = express.Router({mergeParams: true});
+const Campground = require("../models/campground");
+const Comment = require("../models/comment");
 // const { route } = require("./campground");
 
-var middleware = require("../middleware")  // will automaticlly include index.js
+const middleware = require("../middleware")  // will automaticlly include index.js
 
 // Comment form 
 router.get("/new", middleware.isLoggedIn, function(req, res){
